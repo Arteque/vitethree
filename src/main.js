@@ -33,8 +33,12 @@ scene.add(box)
 const light = new THREE.SpotLight(0x006769, 100)
 light.position.set(1,2,1)
 
-scene.add(light)
+const redLight = new THREE.DirectionalLight(0xf5fe01, 5)
+light.position.set(3,-5,5)
 
+
+scene.add(light)
+scene.add(redLight)
 
 const renderer = new THREE.WebGLRenderer({canvas})
 
@@ -56,8 +60,17 @@ const animation = () => {
   dodecahedron.rotation.x += 0.01
   dodecahedron.rotation.y += 0.01
   
+  box.rotation.y -= 0.005
+  controls.update()
   renderer.render(scene, camera)
 
 }
 
 animation()
+
+//Resize
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+})
